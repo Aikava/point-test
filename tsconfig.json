@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src/",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "typeRoots": [
+      "./src/@types"
+    ]
+  },
+  "paths": {
+    "server/*": "./serve/r",
+    "client/*": "./client/"
+  }
+}

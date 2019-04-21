@@ -1,0 +1,18 @@
+.light-box {
+  padding: 30px;
+  box-shadow: 0 2px 10px #d3d3d3;
+  text-align: center;
+  display: none;
+  position: fixed;
+  margin: auto 50px;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: white;
+}
+
+.hide-button {
+  font-size: 20px;
+  cursor: pointer;
+  text-align: right;
+}
