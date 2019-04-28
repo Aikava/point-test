@@ -6,7 +6,7 @@ interface IEventListParams {
   onShowEventDetails?: (params?: any) => null;
 }
 
-interface IEventById { [key: string]: IBaseEvent }
+interface IEventById { [key: string]: IBaseEvent; }
 
 export default class EventList {
   private className: string = 'event-list';
@@ -68,13 +68,13 @@ export default class EventList {
     const id = eventDiv.dataset['id'];
     const event = this.events[id];
 
-    this.onShowEventDetails && this.onShowEventDetails(event, id);
+    this.onShowEventDetails && this.onShowEventDetails({ event, id });
   }
 
   updateEvent(id: number, data: INewsEvent) {
     const eventElement = this.getNode().querySelector(`.event[data-id="${id}"]`);
     const event = this.events[id];
-    event.isRead = data.isRead;
+    event.data.isRead = data.isRead;
     eventElement.outerHTML = event.getRawNode();
   }
 

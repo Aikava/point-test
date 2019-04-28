@@ -1,16 +1,8 @@
 import { BaseEvent } from 'client/events';
+import { INewsEvent } from 'client/types';
 import NewsEventView from 'client/events/news-event/news-event-view';
 
 import 'client/events/news-event/news-event.scss';
-
-export interface INewsEvent {
-  id: number;
-  title: string;
-  value: string;
-  date: Date;
-  type: string;
-  isRead: boolean;
-}
 
 const template = require('client/events/news-event/news-event.hbs');
 

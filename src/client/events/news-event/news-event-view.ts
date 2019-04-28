@@ -1,5 +1,5 @@
 import BaseEventView from 'client/events/base-event/base-event-view';
-import { INewsEvent } from 'client/events/news-event/news-event';
+import { INewsEvent } from 'client/types';
 
 import 'client/events/news-event/news-event-view.scss';
 

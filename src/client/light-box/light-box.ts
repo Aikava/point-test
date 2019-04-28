@@ -1,5 +1,5 @@
 import LightBoxView from 'client/light-box/light-box-view';
-import { IBaseEventView } from 'client/events/base-event/base-event-view';
+import { IBaseEventView, IEvents } from 'client/types';
 
 interface ILightBoxParams {
   onAction?: (params?: any) => any;
@@ -10,7 +10,7 @@ export default class LightBox {
   private hideButton: HTMLInputElement;
   private actionInput: HTMLInputElement;
   protected onAction: ILightBoxParams['onAction'];
-  private currentEvent: IBaseEventView | { id: number };
+  private currentEvent: IBaseEventView<IEvents>;
 
   constructor({ onAction }: ILightBoxParams = {}) {
     this.view = new LightBoxView();
@@ -28,7 +28,7 @@ export default class LightBox {
     return this.view.node;
   }
 
-  append(event: IBaseEventView) {
+  append(event: IBaseEventView<IEvents>) {
     const content = this.view.node.getElementsByClassName('content')[0];
 
     content.innerHTML = event.getRawNode();
@@ -46,7 +46,7 @@ export default class LightBox {
     this.actionInput.addEventListener('click', this.onAction.bind(null, currentEvent));
   }
 
-  show(event: IBaseEventView, id: number) {
+  show(event: IBaseEventView<IEvents>, id: number) {
     this.currentEvent = { ...event, id };
 
     this.append(event);

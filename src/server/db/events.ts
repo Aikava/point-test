@@ -3,8 +3,8 @@ import * as Sequelize from 'sequelize';
 export interface IDBEvent  {
   id?: number;
   type: string;
-  createdAt: Date,
-  data: JSON
+  createdAt: Date;
+  data: JSON;
 }
 
 export type EventInstance = Sequelize.Instance<IDBEvent>;
@@ -31,7 +31,7 @@ export default function (sequelize: Sequelize.Sequelize): EventModel {
       },
       data: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.JSONB
       }
     }, {
       underscored: true,

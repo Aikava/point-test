@@ -15,11 +15,12 @@ export async function removeEvent(id: number) {
 
 export async function updateEvent(id: number, data: object) {
   const request = await fetch(updateEventUrl(id), {
-    method: 'POST',
+    body: JSON.stringify({ data }),
     headers: {
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
-      body: { data: data }
-    }
+    },
+    method: 'POST'
   });
 
   return await request.json();

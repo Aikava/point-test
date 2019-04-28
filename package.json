@@ -5,10 +5,15 @@
   "main": "main.ts",
   "scripts": {
     "start:client:dev": "cd src/client && webpack-dev-server --mode development",
-    "build": "npm-run-all build:*",
+    "start:server:dev": "NODE_ENV=local NODE_PATH=./src NODE_CONFIG_DIR=./src/server/config node -r ts-node/register src/server/main.ts",
+    "dev": "npm-run-all start:*:dev",
+    "start:server": "node server/main.js",
     "build:server": "tsc --project src/server/tsconfig.json",
     "build:client": "cd src/client && webpack",
-    "start:dev": "NODE_ENV=local NODE_PATH=./src NODE_CONFIG_DIR=./src/server/config node -r ts-node/register src/server/main.ts"
+    "build": "npm-run-all build:*",
+    "deploy:build": "docker build -t localhost:5000/point-test:latest ./",
+    "deploy:push": "docker push localhost:5000/point-test:latest",
+    "deploy": "npm-run-all deploy:*"
   },
   "author": "Rykov Dmitry",
   "license": "ISC",
@@ -41,7 +46,6 @@
     "redux": "^4.0.1",
     "sequelize": "^4.41.2",
     "sequelize-typescript": "^0.6.6",
-    "ts-lint": "^4.5.1",
     "ts-loader": "^5.3.3",
     "ts-node": "^8.0.3",
     "tsconfig-paths-webpack-plugin": "^3.2.0",

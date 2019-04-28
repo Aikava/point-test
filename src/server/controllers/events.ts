@@ -4,8 +4,7 @@ import { IDBEvent } from 'server/db/events';
 
 export default class Events {
   public static async findAll(req: Request, res: Response) {
-    // @ts-ignore
-    const all: Array<IDBEvent> = await db.events.findAll();
+    const all: Array<IDBEvent> = await db.events.findAll().map(instance => instance.toJSON());
 
     res.json(all);
   }
@@ -61,8 +60,7 @@ export default class Events {
   }
 
   public static async updateEvent(req: Request, res: Response) {
-    const { params: { eventId: id }, body } = req;
-    console.log('update', id, body);
+    const { params: { eventId: id }, body: { data } } = req;
 
     const event = db.events.findOne({ where: { id: parseInt(id) } });
 
@@ -72,10 +70,8 @@ export default class Events {
       return;
     }
 
-    console.log(body);
-
     try {
-      await db.events.update(body, { where: { id: parseInt(id) } });
+      await db.events.update({ data }, { where: { id: parseInt(id) } });
 
       res.json({ result: true });
     } catch (err) {

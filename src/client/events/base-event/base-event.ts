@@ -1,22 +1,7 @@
-import $ from 'jquery';
-import { IBaseEventView } from './base-event-view';
+import { IBaseEvent, IEvents } from 'client/types';
 
-export interface IBaseEvent {
-  id: number;
-  type: string;
-  data: object;
-  getRawNode: () => string;
-  eventView: IBaseEventView;
-  hidden: boolean;
-}
 
-export interface IEvent {
-  id: number;
-  type: string;
-  data: object;
-}
-
-export default class BaseEvent<T extends Partial<IEvent>> implements IBaseEvent {
+export default class BaseEvent<T extends IEvents> {
   public data: T;
   public id: IBaseEvent['id'];
   public type: IBaseEvent['type'];
@@ -37,9 +22,5 @@ export default class BaseEvent<T extends Partial<IEvent>> implements IBaseEvent 
 
   getRawNode() {
     return this.tpl(this.prepareData({ ...this.data, id: this.id, type: this.type }));
-  }
-
-  getDiv() {
-    return $(this.getRawNode());
   }
 }

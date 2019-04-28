@@ -1,21 +1,20 @@
-import EventList from 'client/event-list/event-list';
-import Controls from 'client/controls/controls';
-import LightBox from 'client/light-box/light-box';
-import { IBaseEvent, INewsEvent, NewsEvent, TransactionEvent } from 'client/events';
-import { sortDate, sortType } from 'client/iib/utils';
 import { loadEvents, removeEvent, updateEvent } from 'client/actions';
-import { IBaseEventView } from './events/base-event/base-event-view';
+import Controls from 'client/controls/controls';
+import EventList from 'client/event-list/event-list';
+import { NewsEvent, TransactionEvent } from 'client/events';
+import { sortDate, sortType } from 'client/lib/utils';
+import LightBox from 'client/light-box/light-box';
+import { EventTypes, IBaseEventView, IEvents} from 'client/types';
 
-const dataToEventsType: { [key: string]: typeof NewsEvent | typeof TransactionEvent} = {
-  'transaction': TransactionEvent,
-  'news': NewsEvent
+const dataToEventsType: { [key: string]: typeof NewsEvent | typeof TransactionEvent } = {
+  [EventTypes.TRANSACTION]: TransactionEvent,
+  [EventTypes.NEWS]: NewsEvent
 };
 
 const fieldToSort: { [key: string]: any } = {
-  type: sortType.bind(null ),
-  date: sortDate.bind(null )
+  date: sortDate.bind(null ),
+  type: sortType.bind(null )
 };
-
 
 export default class App {
   private mountPoint: HTMLElement;
@@ -24,8 +23,8 @@ export default class App {
   private controls: Controls;
 
   private eventTypeToAction: { [key: string]: any} = {
-    'transaction': this.removeEvent.bind(this),
-    'news': this.updateEvent.bind(this)
+    [EventTypes.TRANSACTION]: this.removeEvent.bind(this),
+    [EventTypes.NEWS]: this.updateEvent.bind(this)
   };
 
   constructor(mountPoint: HTMLElement) {
@@ -42,31 +41,36 @@ export default class App {
     });
   }
 
-  showEventDetails(event: IBaseEvent, id: number) {
+  public run() {
+    this.mountPoint.append(this.controls.getNode(), this.eventList.getNode(), this.lightBox.getNode());
+
+    this.loadEvents();
+  }
+
+  private showEventDetails(params?: any) {
+    const { event, id } = params;
     this.lightBox.show(event.eventView, id);
   }
 
-  onLightBoxAction({ event, id }: IBaseEventView) {
-    // @ts-ignore
+  private onLightBoxAction({ event, id }: IBaseEventView<IEvents>) {
     const { type } = event;
     const action = this.eventTypeToAction[type];
 
     action(id, event);
   }
 
-  removeEvent(id: number) {
+  private removeEvent(id: number) {
     removeEvent(id)
-      .then((result: any) => {
-
+      .then(() => {
         this.eventList.removeEvent(id);
         this.lightBox.hide();
       })
       .catch(alert);
   }
 
-  updateEvent(id: number, event: INewsEvent) {
+  private updateEvent(id: number, event: IEvents) {
     updateEvent(id, { ...event, isRead: true })
-      .then(result => {
+      .then(() => {
 
         this.eventList.updateEvent(id, { ...event, isRead: true });
         this.lightBox.hide();
@@ -74,12 +78,12 @@ export default class App {
       .catch(alert);
   }
 
-  sortBy(field: string, direction: boolean) {
+  private sortBy(field: string, direction: boolean) {
     const dir = direction ? 1 : -1;
     this.eventList.sortBy(fieldToSort[field].bind(null, dir));
   }
 
-  async loadEvents() {
+  private async loadEvents() {
     const events = await loadEvents();
     const elements = events.reduce((acc: any, event: any) => {
       const eventConstructor = dataToEventsType[event.type];
@@ -92,11 +96,5 @@ export default class App {
     }, []);
 
     this.eventList.push(elements);
-  }
-
-  run() {
-    this.mountPoint.append(this.controls.getNode(), this.eventList.getNode(), this.lightBox.getNode());
-
-    this.loadEvents();
   }
 }
