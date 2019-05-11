@@ -4,6 +4,9 @@ export enum EventTypes {
 }
 
 export type IEvents = INewsEvent | ITransactionEvent;
+export interface IEvent {
+  id: number;
+}
 
 export interface IBaseEvent {
   id: number;
