@@ -1,4 +1,4 @@
-import ControlsView from 'client/controls/controls-view';
+import ControlsView from 'client/ui/web/components/controls/controls-view';
 
 interface IControlsParams {
   onSortByDate?: (direction: any) => null;

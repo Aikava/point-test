@@ -6,6 +6,9 @@ export enum EventTypes {
 export type IEvents = INewsEvent | ITransactionEvent;
 export interface IEvent {
   id: number;
+  type: EventTypes;
+  createdAt: string;
+  data: string;
 }
 
 export interface IBaseEvent {

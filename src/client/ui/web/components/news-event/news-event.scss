@@ -1,0 +1,7 @@
+.news-event {
+  background: linear-gradient(45deg, #aaf, #fff);
+
+  &.is-read {
+    background: white;
+  }
+}

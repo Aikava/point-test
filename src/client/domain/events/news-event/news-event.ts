@@ -1,8 +1,8 @@
-import { BaseEvent } from 'client/events';
+import { BaseEvent } from 'client/domain/events';
 import { INewsEvent } from 'client/types';
-import NewsEventView from 'client/events/news-event/news-event-view';
+import NewsEventView from 'client/domain/events/news-event/news-event-view';
 
-import 'client/events/news-event/news-event.scss';
+import 'client/domain/events/news-event/news-event.scss';
 
 const template = require('client/events/news-event/news-event.hbs');
 

@@ -1,6 +1,6 @@
 import { IEvent } from 'client/types';
 
-const db = require('client/api/db.json');
+const db = require('client/repository/db.json');
 
 export async function loadEvents() {
   return db;
@@ -10,6 +10,7 @@ export async function removeEvent(id: number) {
   const i = db.findIndex((event: IEvent) => event.id === id);
 
   if (i < 0) {
+    //send error
     return false;
   }
 
@@ -20,8 +21,9 @@ export async function updateEvent(id: number, data: object) {
   const i = db.findIndex((event: IEvent) => event.id === id);
 
   if (i < 0) {
+    //send error
     return false;
   }
 
-  return db[i].data = { ...db[i].data, ...data };
+  db[i].data = { ...db[i].data, ...data };
 }

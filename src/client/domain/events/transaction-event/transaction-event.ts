@@ -1,9 +1,9 @@
 import moment from 'moment';
 
-import { BaseEvent } from 'client/events';
-import 'client/events/transaction-event/transaction-event.scss';
+// import { BaseEvent } from 'client/domain/events';
+import 'client/domain/events/transaction-event/transaction-event.scss';
 import { ITransactionEvent } from 'client/types';
-import TransactionEventView from 'client/events/transaction-event/transaction-event-view';
+import TransactionEventView from 'client/domain/events/transaction-event/transaction-event-view';
 
 const template = require('client/events/transaction-event/transaction-event.hbs');
 

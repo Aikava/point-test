@@ -1,0 +1,25 @@
+@import "../base-event.scss";
+
+.transaction {
+  display: inline-block;
+  background: linear-gradient(45deg, #faa, white);
+
+  .sum {
+    margin-right: 5px;
+  }
+
+  .sum:before {
+    content: '-';
+  }
+
+  &.is-coming {
+    background: linear-gradient(45deg, #afa, white);
+    .sum:before {
+      content: '+'
+    }
+  }
+
+  .date {
+    float: right;
+  }
+}

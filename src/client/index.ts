@@ -1,6 +1,9 @@
-import App from 'client/app';
+import ViewFactory, { Views } from 'client/ui/view-factory';
+import * as Repository from 'client/repository';
 
-const mountPoint = document.getElementById('app');
-const app = new App(mountPoint);
+(async function main() {
+  const view = ViewFactory.getView(Views.WEB);
+  const events = await Repository.loadEvents();
 
-app.run();
+  view.showEventList(events);
+})();

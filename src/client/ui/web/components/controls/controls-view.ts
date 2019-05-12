@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import 'client/controls/controls.scss';
+import 'client/ui/web/components/controls/controls.scss';
 
 const tpl = require('client/controls/controls.hbs');
 
