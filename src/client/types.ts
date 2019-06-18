@@ -1,3 +1,5 @@
+import { IEventView } from 'client/view/types';
+
 export enum EventTypes {
   NEWS = 'news',
   TRANSACTION = 'transaction'
@@ -47,3 +49,8 @@ export interface ITransactionEvent {
   type: string;
 }
 
+export abstract class AbstractEventController {
+  protected currentView: IEventView;
+
+  protected abstract set view (view: IEventView);
+}

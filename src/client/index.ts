@@ -1,9 +1,12 @@
-import ViewFactory, { Views } from 'client/ui/view-factory';
-import * as Repository from 'client/repository';
+import * as Actions from 'client/actions';
+import Application from 'client/app';
+import WebController from 'client/view/controller';
+import WebEventViewFactory from 'client/view/event-factory';
+import WebView from 'client/view/view';
 
-(async function main() {
-  const view = ViewFactory.getView(Views.WEB);
-  const events = await Repository.loadEvents();
-
-  view.showEventList(events);
-})();
+new Application()
+.controller(new WebController())
+.view(new WebView())
+.factory(new WebEventViewFactory())
+.actions(Actions)
+.run();

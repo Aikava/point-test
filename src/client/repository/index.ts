@@ -2,6 +2,7 @@ import { IEvent } from 'client/types';
 
 const db = require('client/repository/db.json');
 
+
 export async function loadEvents() {
   return db;
 }
@@ -25,5 +26,10 @@ export async function updateEvent(id: number, data: object) {
     return false;
   }
 
-  db[i].data = { ...db[i].data, ...data };
+  db[i].data = JSON.stringify({ ...db[i].data, ...data });
+  return db[i];
+}
+
+export function getEvent(id: IEvent['id']) {
+  return db.find((event: IEvent) => event.id === id);
 }
